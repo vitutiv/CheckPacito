@@ -2,11 +2,11 @@ package game;
 
 import java.awt.Color;
 
-public class Piece {
-	private String _name;
-	private Color _color;
-	private Position _position;
-	private int _moveCounter = 0;
+public abstract class Piece {
+	protected String _name;
+	protected Color _color;
+	protected Position _position;
+	protected int _moveCounter = 0;
 	
 	public Piece(String name, Color color, Position position) {
 		_name = name;
@@ -43,4 +43,8 @@ public class Piece {
 		--_moveCounter;
 	}
 	
+
+	public void setPosition(int line, int column) {
+		_position = new Position(column, line);
+	}
 }

@@ -1,7 +1,12 @@
-package game;
+package gameCheckers;
 
 import java.awt.Color;
 import java.util.ArrayList;
+
+import game.Board;
+import game.Game;
+import game.Piece;
+import game.Position;
 
 public class CheckersGame extends Game{
 	
@@ -13,7 +18,7 @@ public class CheckersGame extends Game{
 			for (int column = 0; column < 8; column++) {
 				for (int line = 0; line < 3; line++) {
 					if ((line + column + team) % 2 == 1) {
-						Piece p = new Piece(actualColor,new Position(column, line + (team * 5)));
+						Piece p = new CheckersPiece(actualColor,new Position(column, line + (team * 5)));
 						pieces.add(p);
 						//System.out.println("Piece added: " + column + " " + (line + (team * 5)));
 					}
