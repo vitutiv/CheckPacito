@@ -7,10 +7,8 @@ import game.*;
 public class CheckersGame extends Game{
 	
 	public CheckersGame() {
-		
-		/*Initialize and set team colors, as it's a checkers game, default is red and black*/
 		/* Initialize, generate and add each team pieces generated to the ArrayList of pieces
-		 * I know, it's too many nested 'for's */
+		 * I know, too many nested 'for' loops */
 		Teams.setTeamColors(Color.RED, Color.BLACK);
 		pieces = new ArrayList<Piece>();
 		for (int team = 0; team < 2; team++) {

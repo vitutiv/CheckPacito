@@ -11,32 +11,49 @@ import game.*;
 
 /* HERE'S WHERE THE MESS BEGINS */
 public class GameWindow extends JFrame {
+	
+	/* I don't know why, but my IDE suggested this variable */
 	private static final long serialVersionUID = 1L;
+	
+	/* This variable stores the tile size. */
 	public final int TILE_SIZE = 60;
+	
+	/* The window constructor will receive a board as argument to draw it */
 	public GameWindow(Board b){
+	
+		/* Everything will be drawn inside this JPanel*/
 		JPanel gamePanel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public void paint(Graphics g) {
+				
+				/* Board tiles drawing */
 				for (int x = 0; x < b.getColumnCount(); x++) {
 					for (int y = 0; y < b.getLineCount(); y ++) {						
+						
+						/* This is responsible to make the near tiles to be a different color as in normal board */
 						if ((x + y) % 2 == 0) {
 							g.setColor(Color.WHITE);
 						}else{
 							g.setColor(Color.BLACK);
 						}
+						/* This draws the square tile itself */
 						g.fillRect(x * TILE_SIZE , y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-						//System.out.println("Board Column: " + x + " Line:"+ y + " Color: " + g.getColor());
+						
+						//System.out.println("Drawing Board Column: " + x + " Line:"+ y + " Color: " + g.getColor());
 					}
 				}
 				
+				/* Piece drawing */
 				for (int l = 0; l < b.getLineCount(); l++) {
 					for (int c = 0; c < b.getColumnCount(); c++) {
 						if (b.getTiles()[l][c] != null) {
 							int line = b.getTiles()[l][c].getPosition().getLine();
 							int column = b.getTiles()[l][c].getPosition().getColumn();
+							/* Draws the piece itself */
 							g.setColor(b.getTiles()[l][c].getColor());
 							g.fillOval(column * TILE_SIZE + (TILE_SIZE/4), line * TILE_SIZE + (TILE_SIZE / 4), TILE_SIZE/2, TILE_SIZE / 2);
+							/* Draws an outline to avoid viewing issues */
 							g.setColor(Color.WHITE);
 							g.drawOval(column * TILE_SIZE + (TILE_SIZE/4), line * TILE_SIZE + (TILE_SIZE / 4), TILE_SIZE/2, TILE_SIZE / 2);
 						}
@@ -44,10 +61,20 @@ public class GameWindow extends JFrame {
 				}
 			}
 		};
+		
+		/* Let's not forget to add the game panel to the window */
 		getContentPane().add(gamePanel);
+		
+		/* ...And to make the program exit when this window is closed */
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		/* ...And to set a size to it */
 		setSize((int) (TILE_SIZE * (b.getColumnCount() + 0.1)), (int) (TILE_SIZE * (b.getLineCount() + 0.5)));
+		
+		/* ... And to show it */
 		setVisible(true);
+		
+		/* ..Last, but not least, to register the mouse clicks to make the game work */
 		gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
