@@ -8,15 +8,14 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import game.*;
-/* HERE'S WHEN THE MESS BEGINS */
+
+/* HERE'S WHERE THE MESS BEGINS */
 public class GameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public final int TILE_SIZE = 60;
-	private Piece previousPiece = null;
 	public GameWindow(Board b){
 		JPanel gamePanel = new JPanel() {
 			private static final long serialVersionUID = 1L;
-			
 			@Override
 			public void paint(Graphics g) {
 				for (int x = 0; x < b.getColumnCount(); x++) {
@@ -52,44 +51,36 @@ public class GameWindow extends JFrame {
 		gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+            	/* mouseX and mouseY are the mouse coordinates on screen */
             	int mouseX = e.getX();
             	int mouseY = e.getY();
+            	
+            	/* tileColumn and tileLine store calculated values about the line and column clicked by the user */
             	int tileColumn = (int) (mouseX / TILE_SIZE);
             	int tileLine = (int) (mouseY / TILE_SIZE);
-            	            	
-            	if (b.getTiles()[tileLine][tileColumn] == null) {
-            		System.out.print("No piece here: ");
-            		if (previousPiece != null) {
-            			Position previousPosition = previousPiece.getPosition();
-                		if (previousPiece.setPosition(tileLine, tileColumn)){
-                    		b.getTiles()[previousPosition.getLine()][previousPosition.getColumn()] = null;
-                    		b.getTiles()[tileLine][tileColumn] = previousPiece;
-                		}
-            		}
-            	}else {
-            		System.out.print("There is a piece here: ");
-        			previousPiece = b.getTiles()[tileLine][tileColumn];
+            	
+            	/* Handles the return values of the movePiece method */
+            	switch (b.movePiece(tileLine,tileColumn)) {
+            	case 0:
+            		System.out.print("Position of piece changed successfully. ");
+            		break;
+            	case 1:
+            		System.out.print("There is no piece here. ");
+            		break;
+            	case 2:
+            		System.out.print("There is a piece here. ");
+            		break;
+        		default:
+        			System.out.print("UNHANDLED COSMIC EXCEPTION");
             	}
+            	
+            	/* Outputs last clicked and calculated line and column */
             	System.out.println("Line: " + tileLine + " Column: " + tileColumn);
-
-            	/* Outputs a board for debugging purposes */
-            	for (int line = 0; line < b.getLineCount(); line++) {
-            		for (int column = 0; column < b.getColumnCount(); column++) {
-            			if (b.getTiles()[line][column] != null) {
-            				if (b.getTiles()[line][column].getColor() == Teams.getTeamColor(0)) {
-                				System.out.print("[R]");
-            				}else {
-            					System.out.print("[B]");
-            				}
-            			}else {
-            				System.out.print("[ ]");
-            			}
-            		}
-        			System.out.println("");
-            	}
+            	
+            	/* Outputs a text version of the board for debugging purposes */
+            	System.out.println(b.toString());
             	gamePanel.repaint();
             }
 		});
 	}
-
 }

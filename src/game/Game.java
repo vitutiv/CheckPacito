@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Game {
 
 	protected ArrayList<Piece> pieces;
-	protected Board board;
+	protected Board board = new Board();
 	
 	public Game(){
 		/* Just a nice to have */

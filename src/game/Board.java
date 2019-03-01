@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class Board {
 	/* Lines and column count */
-	private int _lines = 8;
-	private int _columns = 8;
+	protected int _lines = 8;
+	protected int _columns = 8;
 	/* The board "itself" - a two dimensional array with "lines" and "columns" */
-	private Piece[][] _tiles = new Piece[8][8];
-	
+	protected Piece[][] _tiles = new Piece[8][8];
+	protected Piece previousPiece = null;
+
 	/* Empty constructor because all needed variables are initialized elsewhere, so... */
 	public Board() {
 		
@@ -46,8 +47,37 @@ public class Board {
 		}
 	}
 	
-	/* Return the board tiles*/
+	/* Returns the board tiles */
 	public Piece[][] getTiles() {
 		return _tiles;
+	}
+	
+	/* Returns if tile has a piece */
+	public boolean hasPiece(int tileLine, int tileColumn) {
+		return _tiles[tileLine][tileColumn] != null;
+	}
+	
+	/* Move Piece to tile */
+	public byte movePiece(int tileLine, int tileColumn) {
+		return 0;
+	}
+	
+	public String toString() {
+		String boardString = "";
+		for (int line = 0; line < _lines; line++) {
+    		for (int column = 0; column < _columns; column++) {
+    			if (_tiles[line][column] != null) {
+    				if (_tiles[line][column].getColor() == Teams.getTeamColor(0)) {
+    					boardString += ("[R]");
+    				}else {
+    					boardString += ("[B]");
+    				}
+    			}else {
+    				boardString += ("[ ]");
+    			}
+    		}
+    		boardString += ("\n");
+    	}
+		return boardString;
 	}
 }

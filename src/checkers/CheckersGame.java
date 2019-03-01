@@ -25,6 +25,6 @@ public class CheckersGame extends Game{
 		}
 		
 		/* Finally, initializes the board with the lines, columns and pieces */
-		board = new Board(8,8,pieces);
+		board = new CheckersBoard(pieces);
 	}
 }
