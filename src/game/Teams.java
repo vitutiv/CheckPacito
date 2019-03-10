@@ -36,11 +36,6 @@ public class Teams {
 		teamColor = tc;
 	}
 	
-	/* This method allows you to set the team colors by giving two colors as argument */
-	public static void setTeamColors(Color ct1, Color ct2) {
-		teamColor = new Color[] {ct1, ct2};
-	}
-	
 	/* This method (you know what) turn by giving an integer value (the index) as argument */
 	public static boolean setTeamTurn(int i) {
 		if (getTeamColor(i) != null) {

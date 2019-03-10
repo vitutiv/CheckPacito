@@ -1,7 +1,5 @@
 package checkers;
-
 import java.awt.Color;
-
 import game.Piece;
 import game.Position;
 import game.Teams;
@@ -12,9 +10,9 @@ public class CheckersPiece extends Piece{
 		super(color,position);
 	}
 	
-	/* Basic constructor - Color only*/
+	/* Basic constructor - Color only */
 	public CheckersPiece(Color color) {
-		super(color,null);
+		super(color);
 	}
 	
 	@Override
@@ -35,5 +33,4 @@ public class CheckersPiece extends Piece{
 		}
 		return false;
 	}
-
 }

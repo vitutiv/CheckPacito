@@ -23,8 +23,15 @@ public class CheckersBoard extends Board{
 		if (!hasPiece(tileLine, tileColumn)) {
     		if (previousPiece != null) {
     			Position previousPosition = previousPiece.getPosition();
-        		if (previousPiece.setPosition(tileLine, tileColumn)){
+        		/* Checks if tile is null and moves the piece if true */
+    			if (previousPiece.setPosition(tileLine, tileColumn)){
         			_tiles[previousPosition.getLine()][previousPosition.getColumn()] = null;
+        			
+        			/* Checks if piece has become a king */
+        			if (tileLine == _lines - 1 || tileLine == 0) {
+        				_tiles[tileLine][tileColumn] = new CheckerKing(previousPiece);
+        				return -1;
+        			}
         			_tiles[tileLine][tileColumn] = previousPiece;
         			return 0;
         		}

@@ -53,15 +53,19 @@ public class GameWindow extends JFrame {
 							/* Draws the piece itself */
 							g.setColor(b.getTiles()[l][c].getColor());
 							g.fillOval(column * TILE_SIZE + (TILE_SIZE/4), line * TILE_SIZE + (TILE_SIZE / 4), TILE_SIZE/2, TILE_SIZE / 2);
-							/* Draws an outline to avoid viewing issues */
-							g.setColor(Color.WHITE);
+							/* Draws an outline to avoid viewing issues 
+							 * To make distinction, the team that is playing gets a white outline and the other gets a gray one */
+							if (Teams.getTeamTurn() == Teams.getTeamIndex(b.getTiles()[l][c].getColor())) {
+								g.setColor(Color.WHITE);
+							}else {
+								g.setColor(Color.DARK_GRAY);
+							}
 							g.drawOval(column * TILE_SIZE + (TILE_SIZE/4), line * TILE_SIZE + (TILE_SIZE / 4), TILE_SIZE/2, TILE_SIZE / 2);
 						}
 					}
 				}
 			}
 		};
-		
 		/* Let's not forget to add the game panel to the window */
 		getContentPane().add(gamePanel);
 		
@@ -74,7 +78,7 @@ public class GameWindow extends JFrame {
 		/* ... And to show it */
 		setVisible(true);
 		
-		/* ..Last, but not least, to register the mouse clicks to make the game work */
+		/* ...Last, but not least, to register the mouse clicks and make the game work */
 		gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -88,6 +92,9 @@ public class GameWindow extends JFrame {
             	
             	/* Handles the return values of the movePiece method */
             	switch (b.movePiece(tileLine,tileColumn)) {
+            	case -1:
+            		System.out.print("Congratulations! The piece has become a king. ");
+            		break;     		
             	case 0:
             		System.out.print("Position of piece changed successfully. ");
             		break;
@@ -98,7 +105,7 @@ public class GameWindow extends JFrame {
             		System.out.print("There is a piece here. ");
             		break;
         		default:
-        			System.out.print("UNHANDLED COSMIC EXCEPTION");
+        			System.out.print("UNHANDLED COSMIC EXCEPTION. ");
             	}
             	
             	/* Outputs last clicked and calculated line and column */
@@ -109,5 +116,6 @@ public class GameWindow extends JFrame {
             	gamePanel.repaint();
             }
 		});
+	
 	}
 }

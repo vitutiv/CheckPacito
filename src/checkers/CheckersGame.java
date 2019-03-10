@@ -9,7 +9,7 @@ public class CheckersGame extends Game{
 	public CheckersGame() {
 		/* Initialize, generate and add each team pieces generated to the ArrayList of pieces
 		 * I know, too many nested 'for' loops */
-		Teams.setTeamColors(Color.RED, Color.BLACK);
+		Teams.setTeamColors(new Color[]{Color.RED, Color.BLACK});
 		pieces = new ArrayList<Piece>();
 		for (int team = 0; team < 2; team++) {
 			for (int column = 0; column < 8; column++) {
@@ -22,7 +22,7 @@ public class CheckersGame extends Game{
 			}
 		}
 		
-		/* Finally, initializes the board with the lines, columns and pieces */
+		/* Finally, initializes the checker board with the pieces */
 		board = new CheckersBoard(pieces);
 	}
 }

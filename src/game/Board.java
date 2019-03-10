@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import checkers.CheckerKing;
+
 public class Board {
 	/* Lines and column count */
 	protected int _lines = 8;
@@ -68,9 +70,17 @@ public class Board {
     		for (int column = 0; column < _columns; column++) {
     			if (_tiles[line][column] != null) {
     				if (_tiles[line][column].getColor() == Teams.getTeamColor(0)) {
-    					boardString += ("[R]");
+    					if (_tiles[line][column] instanceof CheckerKing) {
+    						boardString += ("[K]");
+						}else {
+							boardString += ("[R]");	
+						}
     				}else {
-    					boardString += ("[B]");
+    					if (_tiles[line][column] instanceof CheckerKing) {
+    						boardString += ("[Q]");
+    					}else {
+        					boardString += ("[B]");
+    					}
     				}
     			}else {
     				boardString += ("[ ]");
@@ -81,3 +91,5 @@ public class Board {
 		return boardString;
 	}
 }
+
+//♚ ♛ ♜ ♝ ♞ ♟ ♔ ♕ ♖ ♗ ♘ ♙ ⛀⛁⛃⛂
