@@ -25,9 +25,12 @@ public class CheckersPiece extends Piece{
 			}
 			int oldLine = _position.getLine();
 			int oldColumn = _position.getColumn();
-			if (line == oldLine + way && column == oldColumn + 1 || line == oldLine + way && column == oldColumn - 1) {
+			if (line == oldLine + way && (column == oldColumn + 1 || column == oldColumn - 1)) {
 				_position = new Position(line, column);
 				Teams.nextTurn();
+				return true;
+			}else if (line == oldLine + (2 * way) && (column == oldColumn + 2 || column == oldColumn - 2)){
+				_position = new Position(line, column);
 				return true;
 			}
 		}
